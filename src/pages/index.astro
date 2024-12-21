@@ -1,0 +1,99 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import { Button } from "@/components/ui/button";
+import { BsArrowRight, BsLinkedin } from "react-icons/bs";
+import { HiDownload } from "react-icons/hi";
+import { FaGithubSquare } from "react-icons/fa";
+import { envVariables } from "@/lib/env-variables";
+import SectionHeading from "@/components/SectionHeading";
+import { JobList } from "@/components/jobs/JobList";
+import { Badge } from "@/components/ui/badge";
+import { skills } from "@/consts/skills";
+
+import "@fontsource-variable/inter";
+import "@/styles/globals.css";
+import { ProjectList } from "@/components/projects/ProjectList";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+---
+
+<BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+  <section id="home">
+    <h3 class="font-medium text-3xl py-5">Hi, Santiago here!</h3>
+    <p>
+      I am a Junior Fullstack Developer. I like to build applications. Mainly
+      with ReactJs and NestJs.
+    </p>
+
+    <div
+      class="flex flex-row flex-wrap items-center gap-2 mt-5 text-lg font-medium"
+    >
+      <a href="contact">
+        <Button>
+          Contact me here
+          <BsArrowRight
+            className="opacity-70 group-hover:translate-x-1 transition"
+          />
+        </Button>
+      </a>
+
+      <a target="_blank" href={envVariables.cvUrl}>
+        <Button variant="secondary">
+          <!-- href={EnvVariables.cvUrl} -->
+          Download CV
+          <HiDownload
+            className="opacity-60 group-hover:translate-y-1 transition"
+          />
+        </Button>
+      </a>
+      <a target="_blank" href={envVariables.linkedInUrl}>
+        <Button variant="secondary">
+          <BsLinkedin />
+        </Button>
+      </a>
+
+      <a target="_blank" href={envVariables.githubUrl}>
+        <!-- class="bg-white p-4 text-gray-700 flex items-center gap-2 text-[1.35rem] rounded-full hover:text-gray-950 active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10 dark:text-white" -->
+        <Button variant="secondary">
+          <!-- href={EnvVariables.githubUrl} -->
+          <FaGithubSquare />
+        </Button>
+      </a>
+    </div>
+  </section>
+  <section>
+    <SectionHeading> Experience </SectionHeading>
+    <JobList />
+  </section>
+  <section>
+    <SectionHeading>Projects</SectionHeading>
+    <ProjectList />
+  </section>
+
+  <section>
+    <SectionHeading>Skills</SectionHeading>
+    <ul class="flex flex-wrap justify-center gap-2 text-lg text-gray-800">
+      {skills.map((skill, index) => <Badge variant="secondary">{skill}</Badge>)}
+    </ul>
+  </section>
+  <section>
+    <SectionHeading>About</SectionHeading>
+    <p class="">
+      I discovered my passion for programming before starting university, which
+      led me to pursue a degree in Information Technology Engineering
+      (2019-2023). During my studies, I learned various programming languages
+      and found a particular interest in web development. Programming allows me
+      to solve problems and create solutions that help people. My main
+      programming languages are TypeScript and Java, and I work with frameworks
+      like React, Next.js, Node.js, NestJS, and Spring Boot. I also have
+      experience with relational databases (MySQL, PostgreSQL) and NoSQL
+      databases (MongoDB).
+    </p>
+  </section>
+  <!-- <Footer /> -->
+  <!-- </main>
+  </body>
+</html> -->
+</BaseLayout>

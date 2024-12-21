@@ -1,0 +1,67 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+
+let sended = false;
+let success = false;
+---
+
+<script>
+  import { actions } from "astro:actions";
+  import { navigate } from "astro:transitions/client";
+
+  const form = document.querySelector("form");
+  form?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const formData = new FormData(form);
+    const { error } = await actions.sendEmail(formData);
+    
+    form.reset();
+    // if (!error) navigate('/confirmation');
+  });
+</script>
+
+<BaseLayout title="Contact">
+  <p class="mb-5">
+    Please, contact me directly at{" "}
+    <a class="underline" href="mailto:santiagoquirumbay10@gmail.com">
+      santiagoquirumbay10@gmail.com
+    </a>{" "}
+    or through this form.
+  </p>
+
+  {
+    success && sended && (
+      <Alert>
+        <AlertTitle>Success</AlertTitle>
+        <AlertDescription>
+          Your message has been sent successfully.
+        </AlertDescription>
+      </Alert>
+    )
+  }
+
+  <form class="flex flex-col gap-4">
+    <Input
+      className=""
+      name="email"
+      type="email"
+      required
+      maxLength={500}
+      placeholder="Your email"
+    />
+    <Textarea
+      className="resize-none"
+      name="message"
+      placeholder="Your message"
+      required
+      maxLength={5000}
+      rows={7}
+    />
+    <Button>Send email</Button>
+    <!-- <SubmitBtn /> -->
+  </form>
+</BaseLayout>

@@ -1,0 +1,24 @@
+---
+import HeaderLink from "./HeaderLink.astro";
+import { SITE_TITLE } from "../consts";
+import { Button } from "@/components/ui/button";
+import clsx from "clsx";
+import { links } from "../consts/links";
+import { ModeToggle } from "@/components/ModeToggle";
+---
+
+<header class="max-w-[700px] mx-auto px-5">
+  <nav class="mx-auto flex items-center justify-between gap-3 mb-20 sm:mt-20">
+    <div class="hidden sm:flex">S</div>
+    <div>
+      {
+        links.map((link) => (
+          <a href={link.hash}>
+            <Button variant="link">{link.name}</Button>
+          </a>
+        ))
+      }
+    </div>
+    <ModeToggle client:load />
+  </nav>
+</header>
