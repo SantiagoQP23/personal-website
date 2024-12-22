@@ -93,8 +93,9 @@ h5 {
 }
 strong,
 b {
-  margin-top: 1em;
-	font-weight: 700;
+  /* margin-top: 1em; */
+	/* font-weight: 700; */
+  font-weight: bold;
 }
 a {
 	color: var(--accent);
@@ -123,6 +124,7 @@ img {
 	width: auto;
 	height: auto;
 	border-radius: 8px;
+  margin-bottom: 2em ;
 }
 code {
 	padding: 2px 5px;

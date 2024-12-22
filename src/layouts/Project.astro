@@ -1,19 +1,17 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import BaseHead from "../components/BaseHead.astro";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 
 type Props = CollectionEntry<"project">["data"];
 
-const { title, description, url, pubDate, updatedDate, heroImage } =
+const { title, description, url, pubDate, updatedDate, heroImage, tags } =
   Astro.props;
 import "@fontsource-variable/inter";
 import "@/styles/globals.css";
 import BaseLayout from "./BaseLayout.astro";
 import { Button } from "@/components/ui/button";
 import { FaGithub, FaGithubSquare } from "react-icons/fa";
+import { Badge } from "@/components/ui/badge";
 ---
 
 <style>
@@ -71,14 +69,26 @@ import { FaGithub, FaGithubSquare } from "react-icons/fa";
     <div class="prose">
       <div class="title">
         <div class="date">
-          <span> {pubDate}</span>
+          <FormattedDate date={pubDate} />
           {
             updatedDate && (
-              <div class="last-updated-on">Last updated on {updatedDate}</div>
+              <div class="last-updated-on">
+                Last updated on <FormattedDate date={updatedDate} />
+              </div>
             )
           }
         </div>
         <h1>{title}</h1>
+        {
+          tags && (
+            <ul class="flex flex-wrap justify-center gap-2 text-lg text-gray-800">
+              {tags.map((tag) => (
+                <Badge variant="secondary">{tag}</Badge>
+              ))}
+            </ul>
+          )
+        }
+        <div class="h-3" />
         <a href={url} target="_blank" rel="noopener noreferrer">
           <Button variant="link">
             <FaGithub />
@@ -88,10 +98,7 @@ import { FaGithub, FaGithubSquare } from "react-icons/fa";
         <hr />
       </div>
     </div>
+
     <slot />
   </article>
 </BaseLayout>
-<!-- </main>
-    <Footer />
-  </body>
-</html> -->

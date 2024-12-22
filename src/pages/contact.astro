@@ -18,9 +18,11 @@ let success = false;
     event.preventDefault();
     const formData = new FormData(form);
     const { error } = await actions.sendEmail(formData);
-    
+
     form.reset();
-    // if (!error) navigate('/confirmation');
+    if(!error) {
+      alert('Message sent successfully');
+    }
   });
 </script>
 
