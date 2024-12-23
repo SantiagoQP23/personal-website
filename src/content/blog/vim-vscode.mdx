@@ -1,0 +1,226 @@
+---
+title: "How to use vim in vscode"
+description: "My personal configuration for using vim in vscode"
+pubDate: "Dec 28 2024"
+heroImage: "https://opengraph.githubassets.com/83af5754ffb42cc7f8e6ca5cfe6994e2a04b9bc4b9a0ea5339911b6c4bff5cc0/VSCodeVim/Vim"
+tags: ["vim", "vscode", "configuration"]
+---
+
+import { Button } from "@/components/ui/button";
+
+### Introduction
+
+If you're a developer who loves the efficiency of Vim but prefers the versatility of Visual Studio Code (VS Code), you can combine the best of both worlds! Here's how I configure VS Code to mimic the Vim experience while leveraging the power of modern IDE features.
+
+---
+
+### Prerequisites
+
+1. Install
+   <a href="https://marketplace.visualstudio.com/items?itemName=vscodevim.vim">
+     <Button client:load variant="link">
+       VSCodeVim/Vim
+     </Button>
+   </a>
+   extension.
+2. Familiarize yourself with VS Code settings and the `settings.json` file.
+3. I recommend using the following extensions to learn more about vim:
+- [Learn Vim](https://marketplace.visualstudio.com/items?itemName=vintharas.learn-vim)
+- [Vim Cheat Sheet](https://marketplace.visualstudio.com/items?itemName=AndenetAlexander.vim-cheatsheet)
+
+
+4. Theme: [Everforest](https://marketplace.visualstudio.com/items?itemName=sainnhe.everforest)
+
+5. Font: IosevkaTerm Nerd Font
+
+### My Configuration with Explanations
+
+Below is my `settings.json` configuration for using Vim in VS Code, along with explanations for each setting.
+
+```json
+{
+  "editor.lineNumbers": "relative",
+  "vim.leader": "<space>",
+  "vim.foldfix": true,
+  "vim.hlsearch": true,
+  "vim.smartRelativeLine": true,
+  "vim.normalModeKeyBindings": [
+    {
+      "before": ["g", "p", "d"],
+      "commands": ["editor.action.peekDefinition"],
+      "silent": true
+    },
+    {
+      "before": ["leader", "f", "c"],
+      "commands": ["workbench.action.showCommands"],
+      "silent": true
+    },
+    {
+      "before": ["leader", "t", "h"],
+      "commands": ["workbench.action.toggleAuxiliaryBar"],
+      "silent": true
+    },
+    {
+      "before": ["leader", "t", "p"],
+      "commands": ["workbench.action.togglePanel"],
+      "silent": true
+    },
+    { "before": ["leader", "r", "r"], "commands": ["editor.action.rename"] },
+    {
+      "before": ["<leader>", "f", "f"],
+      "commands": ["workbench.action.quickOpen"],
+      "silent": true
+    },
+    {
+      "before": ["<leader>", "r", "g"],
+      "commands": ["workbench.view.search"],
+      "silent": true
+    },
+    {
+      "before": ["<leader>", "e"],
+      "commands": ["workbench.files.action.focusFilesExplorer"],
+      "silent": true
+    },
+    { "before": ["<leader>", "m"], "commands": ["bookmarks.toggle"] },
+    { "before": ["<leader>", "b"], "commands": ["bookmarks.list"] },
+    {
+      "before": ["leader", "w"],
+      "commands": ["workbench.action.files.save"],
+      "silent": true
+    },
+    {
+      "before": ["<leader>", "k"],
+      "commands": ["editor.action.showHover"],
+      "silent": true
+    },
+    {
+      "before": ["<leader>", "t", "s"],
+      "commands": ["workbench.action.toggleSidebarVisibility"],
+      "silent": true
+    },
+    {
+      "before": ["<leader>", "x", "r"],
+      "commands": ["references-view.findReferences"],
+      "silent": true
+    },
+    {
+      "before": ["g", "r"],
+      "commands": ["editor.action.goToReferences"],
+      "silent": true
+    },
+    {
+      "before": ["leader", "f", "m"],
+      "commands": ["editor.action.formatDocument"],
+      "silent": true
+    },
+    {
+      "before": ["leader", "c", "a"],
+      "commands": ["editor.action.refactor"],
+      "silent": true
+    },
+    { "before": ["leader", "q"], "commands": [":q!"], "silent": true },
+    {
+      "before": ["<leader>", "o", "g"],
+      "commands": ["workbench.action.showAllSymbols"],
+      "silent": true
+    },
+    {
+      "before": ["<leader>", "o", "o"],
+      "commands": [
+        "workbench.action.showEditorsInActiveGroup",
+        "workbench.action.quickOpenNavigateNextInEditorPicker"
+      ],
+      "silent": true
+    },
+    {
+      "before": ["H"],
+      "commands": ["workbench.action.previousEditor"],
+      "silent": true
+    },
+    {
+      "before": ["L"],
+      "commands": ["workbench.action.nextEditor"],
+      "silent": true
+    }
+  ],
+  "vim.visualModeKeyBindings": [
+    {
+      "before": ["<leader>", "r", "g"],
+      "commands": ["workbench.action.findInFiles"],
+      "silent": true
+    },
+    {
+      "before": ["leader", "f", "m"],
+      "commands": ["editor.action.formatDocument"],
+      "silent": true
+    },
+    {
+      "before": ["leader", "c", "a"],
+      "commands": ["editor.action.refactor"],
+      "silent": true
+    },
+    {
+      "before": ["leader", "f", "c"],
+      "commands": ["workbench.action.showCommands"],
+      "silent": true
+    }
+  ]
+}
+```
+
+### Key Features
+
+#### General Settings
+
+- **`editor.lineNumbers: "relative"`**: Displays relative line numbers for easier navigation using Vim commands.
+- **`vim.leader: "<space>"`**: Sets the leader key to `<Space>` for quick access to custom keybindings.
+- **`vim.foldfix: true`**: Fixes folding issues for smoother code navigation.
+- **`vim.hlsearch: true`**: Highlights search results for better visibility.
+- **`vim.smartRelativeLine: true`**: Combines absolute line numbers for the active line and relative numbers for others.
+
+#### Custom Keybindings
+
+##### Normal Mode
+
+- **`gp`**: Peek definition of a symbol.
+- **`<leader>fc`**: Open the command palette.
+- **`<leader>th`**: Toggle the auxiliary bar (e.g., extensions view).
+- **`<leader>tp`**: Toggle the bottom panel (e.g., terminal).
+- **`<leader>rr`**: Rename a symbol.
+- **`<leader>ff`**: Quick open file search.
+- **`<leader>rg`**: Open the search panel.
+- **`<leader>e`**: Focus on the file explorer.
+- **`<leader>m`**: Toggle bookmarks for lines.
+- **`<leader>b`**: Show the bookmarks list.
+- **`<leader>w`**: Save the current file.
+- **`<leader>k`**: Show hover information (e.g., type hints).
+- **`<leader>ts`**: Toggle sidebar visibility.
+- **`<leader>xr`**: Find references in the project.
+- **`gr`**: Go to references for a symbol.
+- **`<leader>fm`**: Format the document.
+- **`<leader>ca`**: Open refactor suggestions.
+- **`<leader>q`**: Quit the editor without saving.
+- **`<leader>og`**: Show all symbols.
+- **`<leader>oo`**: Show open editors and navigate between them.
+- **`H`/`L`**: Navigate to the previous/next editor tab.
+
+##### Visual Mode
+
+- **`<leader>rg`**: Search for the selected text in files.
+- **`<leader>fm`**: Format the selected text.
+- **`<leader>ca`**: Open refactor suggestions for the selection.
+- **`<leader>fc`**: Open the command palette.
+
+---
+
+## Benefits of This Setup
+
+1. Seamless navigation with Vim commands.
+2. Full use of VS Code’s features via custom bindings.
+3. Consistency across development environments.
+
+---
+
+## Conclusion
+
+This configuration transforms your VS Code into a powerful hybrid of Vim's efficiency and VS Code's modern capabilities. Try it out, and feel free to customize it further based on your preferences!

@@ -5,13 +5,15 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 
 import "@fontsource-variable/inter";
 import "@/styles/globals.css";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
 
 const posts = (await getCollection("blog")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 ---
 
-<style>
+<!-- <style>
   main {
     width: 960px;
   }
@@ -79,26 +81,33 @@ const posts = (await getCollection("blog")).sort(
       font-size: 1.563em;
     }
   }
-</style>
+</style> -->
 <BaseLayout title="Blog">
   <section>
-    <h2>Blog</h2>
+    <h2 class="mb-10">Blog</h2>
 
-    <h4>Coming soon</h4>
-    <!-- <ul>
+    <div>
       {
         posts.map((post) => (
-          <li>
-            <a href={`/blog/${post.id}/`}>
-              <img width={720} height={360} src={post.data.heroImage} alt="" />
-              <h4 class="title">{post.data.title}</h4>
-              <p class="date">
-                <FormattedDate date={post.data.pubDate} />
-              </p>
+          <Card className="mb-8 flex w-full pt-5 px-5">
+            <a href={`/blog/${post.id}/`} class="flex w-full">
+              <div>
+                {/* <img width={720} height={360} src={post.data.heroImage} alt="" /> */}
+                <h6 class="font-semibold">{post.data.title}</h6>
+                <p>{post.data.description}</p>
+                <div class="flex flex-wrap  gap-2 text-lg text-gray-800 mb-3">
+                  {post.data.tags.map((skill, index) => (
+                    <Badge variant="secondary">{skill}</Badge>
+                  ))}
+                </div>
+                <p class="text-sm">
+                  <FormattedDate date={post.data.pubDate} />
+                </p>
+              </div>
             </a>
-          </li>
+          </Card>
         ))
       }
-    </ul> -->
+    </div>
   </section>
 </BaseLayout>
